@@ -14,11 +14,11 @@ text-align: justify}
 </style>
 
 
-# Problem {#id1}
+# Problem
 
 Construct a classifier that predicts the result of the chess game (as seen in the column _winner_) using the data from the accompanying file data.csv.
 
-# Data info {#id2}
+# Data info
 
 data.csv is a database containing data on 18 000 games played on the site _Lichess.org_. The database contains the following columns:
 
