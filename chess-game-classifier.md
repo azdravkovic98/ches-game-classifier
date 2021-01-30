@@ -22,26 +22,179 @@ Construct a classifier that predicts the result of the chess game (as seen in th
 
 data.csv is a database containing data on 18 000 games played on the site _Lichess.org_. The database contains the following columns:
 
-```{r echo=FALSE, warning = FALSE}
-library(kableExtra)
-library(glue)
 
-table <- rbind(c(1, "id", "game identification label"), c(2, "rated", "whether or not the game is rated (T/F)"), c(3, "created_at", "time of the beginning of the game"), c(4, "last_move_at", "end time of the game"), c(5, "turns", "number of total moves"), c(6, "victory_status", "the way the game ended (mate/resign/outoftime/draw)"), c(7, "winner", "who has won (black/white)"), c(8, "increment_code", "time control of the game"), c(9, "white_id", "white players's username"), c(10, " white_rating", "ranking of the white player"), c(11, "black_id", "black player's username"), c(12, "black_ranking", "ranking of the black player"), c(13, "moves", "list of all the moves played (in the standard chess notation)"), c(14, "opening_eco", "classification of the opening"), c(15, "opening_name", "the name of the opening"), c(16, "opening_ply", "number of moves in the opening move"))
-knitr::kable(table, format = "latex", escape = TRUE)
-table %>%
-  kbl() %>%
-  kable_styling()
-```
+\begin{tabular}{l|l|l}
+\hline
+1 & id & game identification label\\
+\hline
+2 & rated & whether or not the game is rated (T/F)\\
+\hline
+3 & created\_at & time of the beginning of the game\\
+\hline
+4 & last\_move\_at & end time of the game\\
+\hline
+5 & turns & number of total moves\\
+\hline
+6 & victory\_status & the way the game ended (mate/resign/outoftime/draw)\\
+\hline
+7 & winner & who has won (black/white)\\
+\hline
+8 & increment\_code & time control of the game\\
+\hline
+9 & white\_id & white players's username\\
+\hline
+10 & white\_rating & ranking of the white player\\
+\hline
+11 & black\_id & black player's username\\
+\hline
+12 & black\_ranking & ranking of the black player\\
+\hline
+13 & moves & list of all the moves played (in the standard chess notation)\\
+\hline
+14 & opening\_eco & classification of the opening\\
+\hline
+15 & opening\_name & the name of the opening\\
+\hline
+16 & opening\_ply & number of moves in the opening move\\
+\hline
+\end{tabular}
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> id </td>
+   <td style="text-align:left;"> game identification label </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> rated </td>
+   <td style="text-align:left;"> whether or not the game is rated (T/F) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> created_at </td>
+   <td style="text-align:left;"> time of the beginning of the game </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:left;"> last_move_at </td>
+   <td style="text-align:left;"> end time of the game </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> turns </td>
+   <td style="text-align:left;"> number of total moves </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6 </td>
+   <td style="text-align:left;"> victory_status </td>
+   <td style="text-align:left;"> the way the game ended (mate/resign/outoftime/draw) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:left;"> winner </td>
+   <td style="text-align:left;"> who has won (black/white) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 8 </td>
+   <td style="text-align:left;"> increment_code </td>
+   <td style="text-align:left;"> time control of the game </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 9 </td>
+   <td style="text-align:left;"> white_id </td>
+   <td style="text-align:left;"> white players's username </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> white_rating </td>
+   <td style="text-align:left;"> ranking of the white player </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 11 </td>
+   <td style="text-align:left;"> black_id </td>
+   <td style="text-align:left;"> black player's username </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 12 </td>
+   <td style="text-align:left;"> black_ranking </td>
+   <td style="text-align:left;"> ranking of the black player </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 13 </td>
+   <td style="text-align:left;"> moves </td>
+   <td style="text-align:left;"> list of all the moves played (in the standard chess notation) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 14 </td>
+   <td style="text-align:left;"> opening_eco </td>
+   <td style="text-align:left;"> classification of the opening </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 15 </td>
+   <td style="text-align:left;"> opening_name </td>
+   <td style="text-align:left;"> the name of the opening </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 16 </td>
+   <td style="text-align:left;"> opening_ply </td>
+   <td style="text-align:left;"> number of moves in the opening move </td>
+  </tr>
+</tbody>
+</table>
 
 ## Solution
 
 Firstly, our dataframe should be imported.
 By looking at the summary of our data, we are able to see that length of the column id (17 226) is smaller than number of rows in total (18 000). That means there is some duplicated data which should be cleaned.
 
-```{r}
+
+```r
 data <- read.csv("data.csv")
 # calling the function summary() on our data
 summary(data) 
+```
+
+```
+##        X              id              rated           created_at       
+##  Min.   :    1   Length:18000       Mode :logical   Min.   :1.377e+12  
+##  1st Qu.: 4501   Class :character   FALSE:3465      1st Qu.:1.478e+12  
+##  Median : 9000   Mode  :character   TRUE :14535     Median :1.496e+12  
+##  Mean   : 9000                                      Mean   :1.484e+12  
+##  3rd Qu.:13500                                      3rd Qu.:1.503e+12  
+##  Max.   :18000                                      Max.   :1.504e+12  
+##   last_move_at           turns        victory_status        winner         
+##  Min.   :1.377e+12   Min.   :  1.00   Length:18000       Length:18000      
+##  1st Qu.:1.478e+12   1st Qu.: 37.00   Class :character   Class :character  
+##  Median :1.496e+12   Median : 55.00   Mode  :character   Mode  :character  
+##  Mean   :1.484e+12   Mean   : 60.54                                        
+##  3rd Qu.:1.503e+12   3rd Qu.: 79.00                                        
+##  Max.   :1.504e+12   Max.   :349.00                                        
+##  increment_code       white_id          white_rating    black_id        
+##  Length:18000       Length:18000       Min.   : 784   Length:18000      
+##  Class :character   Class :character   1st Qu.:1398   Class :character  
+##  Mode  :character   Mode  :character   Median :1567   Mode  :character  
+##                                        Mean   :1597                     
+##                                        3rd Qu.:1793                     
+##                                        Max.   :2700                     
+##   black_rating     moves           opening_eco        opening_name      
+##  Min.   : 789   Length:18000       Length:18000       Length:18000      
+##  1st Qu.:1391   Class :character   Class :character   Class :character  
+##  Median :1562   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :1589                                                           
+##  3rd Qu.:1785                                                           
+##  Max.   :2723                                                           
+##   opening_ply    
+##  Min.   : 1.000  
+##  1st Qu.: 3.000  
+##  Median : 4.000  
+##  Mean   : 4.822  
+##  3rd Qu.: 6.000  
+##  Max.   :28.000
+```
+
+```r
 # duplicated() returns a logical vector where TRUE specifies which 
 # elements of a vector or data frame are duplicates. !duplicated() means 
 # that we don’t want duplicate rows
@@ -50,7 +203,8 @@ data <- data[!duplicated(data$id), ]
 
 To avoid introducing a bias in test using train data, the train-test split should be performed before data preparation steps. To simulate a train and test set we are going to split randomly this data set into 80% train and 20% test.
 
-```{r}
+
+```r
 # Random sample indexes
 train_index <- sample(1:nrow(data), 0.8 * nrow(data))
 test_index <- setdiff(1:nrow(data), train_index)
@@ -70,7 +224,8 @@ The analyses presented in the function *predict_notResign* are as following:
   + The winner is said to be *draw*.
 
 
-```{r}
+
+```r
 data_obvious <- data_train[data_train$victory_status != "resign", ]
 data_toAnalyze <- data_train[data_train$victory_status == "resign", ]
 
@@ -98,12 +253,16 @@ predict_notResign <- function(data_obvious){
 
 The accuracy of the function *predict_obvious* can be calculated as seen bellow. As expected, it is very high. The reason why the accuracy isn't 100% is because there are observations with *victory_status = "outoftime"*, but *winner = "draw"*. We are going to ignore this for now, since the result is satisfying.
 
-```{r}
+
+```r
 prediction_notResign <- predict_notResign(data_obvious)
 accuracy_notResign <- sum(prediction_notResign == 
                             data_obvious$winner)/nrow(data_obvious)
 accuracy_notResign
+```
 
+```
+## [1] 0.9940427
 ```
 
 
@@ -111,42 +270,119 @@ Before using logistic regression to tackle the problem in hand, our idea is to f
 
 The following function *info* takes data frame *data* and returns arrays:
 
-```{r echo=FALSE, warning = FALSE}
-library(kableExtra)
 
-table <- rbind(c("white_score", "score for the white player, calculated by summing the values of all the white pieces at the end of the game"), c("black_score", "score for the black player, calculated by summing the values of all the black pieces at the end of the game"), c("check_black", "total number of checks by the black player (in the last 10 moves)"), c("check_white", "total number of checks by the white player (in the last 10 moves)"), c("king_moves_black", "total number of king moves by the black player (in the last 10 moves)"), c("king_moves_white", "total number of king moves by the white player (in the last 10 moves)"))
-knitr::kable(table, format = "latex", escape = TRUE)
-table %>%
-  kbl() %>%
-  kable_styling()
-```
+\begin{tabular}{l|l}
+\hline
+white\_score & score for the white player, calculated by summing the values of all the white pieces at the end of the game\\
+\hline
+black\_score & score for the black player, calculated by summing the values of all the black pieces at the end of the game\\
+\hline
+check\_black & total number of checks by the black player (in the last 10 moves)\\
+\hline
+check\_white & total number of checks by the white player (in the last 10 moves)\\
+\hline
+king\_moves\_black & total number of king moves by the black player (in the last 10 moves)\\
+\hline
+king\_moves\_white & total number of king moves by the white player (in the last 10 moves)\\
+\hline
+\end{tabular}
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;"> white_score </td>
+   <td style="text-align:left;"> score for the white player, calculated by summing the values of all the white pieces at the end of the game </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> black_score </td>
+   <td style="text-align:left;"> score for the black player, calculated by summing the values of all the black pieces at the end of the game </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> check_black </td>
+   <td style="text-align:left;"> total number of checks by the black player (in the last 10 moves) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> check_white </td>
+   <td style="text-align:left;"> total number of checks by the white player (in the last 10 moves) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> king_moves_black </td>
+   <td style="text-align:left;"> total number of king moves by the black player (in the last 10 moves) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> king_moves_white </td>
+   <td style="text-align:left;"> total number of king moves by the white player (in the last 10 moves) </td>
+  </tr>
+</tbody>
+</table>
 
 The score is calculated by summing all the remaining pieces values. Each piece has its own value: 
 
-```{r echo=FALSE, warning = FALSE}
-library(kableExtra)
 
-table <- rbind(c("pawn", "1"), c("knight", "3"), c("bishop", "3.5"), c("rook", "5"), c("queen", "9"))
+\begin{tabular}{l|l}
+\hline
+pawn & 1\\
+\hline
+knight & 3\\
+\hline
+bishop & 3.5\\
+\hline
+rook & 5\\
+\hline
+queen & 9\\
+\hline
+\end{tabular}
 
-knitr::kable(table, format = "latex", escape = TRUE)
-table %>%
-  kbl() %>%
-  kable_styling()
-```
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;"> pawn </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> knight </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bishop </td>
+   <td style="text-align:left;"> 3.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rook </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> queen </td>
+   <td style="text-align:left;"> 9 </td>
+  </tr>
+</tbody>
+</table>
 
 
 
 The look of *data[5, ]$moves*:
 
-```{r echo=FALSE, warning = FALSE}
 
-table <- (data[5, ]$moves)
+\begin{tabular}{l}
+\hline
+x\\
+\hline
+e4 e5 Nf3 d6 d4 Nc6 d5 Nb4 a3 Na6 Nc3 Be7 b4 Nf6 Bg5 O-O b5 Nc5 Bxf6 Bxf6 Bd3 Qd7 O-O Nxd3 Qxd3 c6 a4 cxd5 Nxd5 Qe6 Nc7 Qg4 Nxa8 Bd7 Nc7 Rc8 Nd5 Qg6 Nxf6+ Qxf6 Rfd1 Re8 Qxd6 Bg4 Qxf6 gxf6 Rd3 Bxf3 Rxf3 Rd8 Rxf6 Kg7 Rf3 Rd2 Rg3+ Kf8 c3 Re2 f3 Rc2 Rg5 f6 Rh5 Kg7 Rd1 Kg6 Rh3 Rxc3 Rd7 Rc1+ Kf2 Rc2+ Kg3 h5 Rxb7 Kg5 Rxa7 h4+ Rxh4 Rxg2+ Kxg2 Kxh4 b6 Kg5 b7 f5 exf5 Kxf5 b8=Q e4 Rf7+ Kg5 Qg8+ Kh6 Rh7\#\\
+\hline
+\end{tabular}
 
-knitr::kable(table, format = "latex", escape = TRUE)
-table %>%
-  kbl() %>%
-  kable_styling()
-```
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> x </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> e4 e5 Nf3 d6 d4 Nc6 d5 Nb4 a3 Na6 Nc3 Be7 b4 Nf6 Bg5 O-O b5 Nc5 Bxf6 Bxf6 Bd3 Qd7 O-O Nxd3 Qxd3 c6 a4 cxd5 Nxd5 Qe6 Nc7 Qg4 Nxa8 Bd7 Nc7 Rc8 Nd5 Qg6 Nxf6+ Qxf6 Rfd1 Re8 Qxd6 Bg4 Qxf6 gxf6 Rd3 Bxf3 Rxf3 Rd8 Rxf6 Kg7 Rf3 Rd2 Rg3+ Kf8 c3 Re2 f3 Rc2 Rg5 f6 Rh5 Kg7 Rd1 Kg6 Rh3 Rxc3 Rd7 Rc1+ Kf2 Rc2+ Kg3 h5 Rxb7 Kg5 Rxa7 h4+ Rxh4 Rxg2+ Kxg2 Kxh4 b6 Kg5 b7 f5 exf5 Kxf5 b8=Q e4 Rf7+ Kg5 Qg8+ Kh6 Rh7# </td>
+  </tr>
+</tbody>
+</table>
 
 
 
@@ -154,7 +390,8 @@ The function *info* uses information on standard algebraic chess notation (Wikip
 The scores should be a fair predictor, since the bigger score indicates the player's advantage in the number of pieces left on the board. Also, number of checks made in the last 10 moves by a player should be a signal of his advantage.
 On the other hand, when a player moves the king in the last 10 moves, it suggests that he is "running away".  
 
-```{r}
+
+```r
 info <- function(data){
   n <- nrow(data)
   
@@ -348,7 +585,8 @@ info <- function(data){
 
 Let's calculate the info for our dataframes *data_toAnalyze* and *data_test*.
 
-```{r}
+
+```r
 # calculating info for data_toAnalyze
 info_res <- info(data_toAnalyze)
 white_score <- info_res$white_score
@@ -375,7 +613,8 @@ Also, the last predictor will be difference of the king moves made by black and 
 
 Since we have all of the aforementioned predictors, we can model our problem on *data_toAnalyze*, and then test it on *data_test*. 
 
-```{r}
+
+```r
 # column winner has to be transformed for logistic regression
 winner <- as.factor(data_toAnalyze$winner)
 
@@ -388,7 +627,38 @@ e <- king_moves_black - king_moves_white
 model <- glm(winner ~ a + b + c + d + e, family = binomial)
 # we can see that all of our predictors are significant
 summary(model)
+```
 
+```
+## 
+## Call:
+## glm(formula = winner ~ a + b + c + d + e, family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -3.7814  -0.3443   0.0397   0.3550   4.1617  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -1.1681950  0.0549274 -21.268  < 2e-16 ***
+## a            0.0033698  0.0001867  18.050  < 2e-16 ***
+## b            0.2868759  0.0096793  29.638  < 2e-16 ***
+## c            2.6513745  0.0811470  32.674  < 2e-16 ***
+## d            0.3428824  0.0407644   8.411  < 2e-16 ***
+## e            0.3012911  0.0389774   7.730 1.08e-14 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 10710  on 7736  degrees of freedom
+## Residual deviance:  4234  on 7731  degrees of freedom
+## AIC: 4246
+## 
+## Number of Fisher Scoring iterations: 6
+```
+
+```r
 # predictions are being tested on data_test
 newdata <- data.frame(a = data_test$white_rating - data_test$black_rating,
                       b = white_score_test - black_score_test, 
@@ -411,13 +681,17 @@ accuracy <- (accuracy_notResign * nrow(data_obvious) +
                accuracy.glm * nrow(data_toAnalyze))/nrow(data_train)
 
 glue("total accuracy in 1 iteration: {accuracy}")
+```
 
+```
+## total accuracy in 1 iteration: 0.920646242630441
 ```
 
 The last accuracy can vary depending on the partitioning done in the beginning on train-test data. Having that in mind, the idea is to repeat the same process of predicting values for 10 times and in the end define accuracy as the mean of all accuracy values.
 As the function *info* is time consuming, it takes a couple of minutes for the following code to execute!
 
-```{r}
+
+```r
 # accuracy_total is the vector containing accuracy values for all 10 iterations
 accuracy_total <- c()
 
@@ -498,7 +772,10 @@ for(i in 1:10){
 
 # print the final accuracy
 glue("total accuracy in 10 iterations: {mean(accuracy_total)}")
+```
 
+```
+## total accuracy in 10 iterations: 0.920781613397498
 ```
 
 
